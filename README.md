@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Warehouse Managment System(ERP)
 
 ## Overview
@@ -53,3 +54,6 @@ KVA Systems is a robust desktop application designed to streamline various busin
 - **Invoices:**
   - The 'Invoices' is the page that is responsible to manage and track all invoices related to sales and purchases within the business. This interface provides a comprehensive view of each invoice, including details such as purchase order ID, employee ID, vendor ID, product ID, and the names of the employees and vendors involved. It also includes functionality to filter between sales invoices and purchase invoices ![image](https://github.com/proddeha/WPF-Warehouse-Management-System-ERP/assets/119131830/044990a2-56c5-47bf-81f0-3a38976bc6d1)
 
+=======
+# WPF_Warehouse_Management
+>>>>>>> 20b041a2928a757267bbde4abbc82d94d4f22cf7
