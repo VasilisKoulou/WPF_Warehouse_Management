@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Warehouse Managment System(ERP)
 
 ## Overview
@@ -57,3 +58,6 @@ KVA Systems is a robust desktop application designed to streamline various busin
 =======
 # WPF_Warehouse_Management
 >>>>>>> 20b041a2928a757267bbde4abbc82d94d4f22cf7
+=======
+# WPF_Warehouse_Management
+>>>>>>> 32bfeb3a05a7aaf342fd4fb223493ddc229b9824
