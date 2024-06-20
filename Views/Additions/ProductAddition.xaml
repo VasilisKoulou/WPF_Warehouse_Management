@@ -102,6 +102,7 @@
 
                                 </StackPanel>
 
+
                                 <StackPanel Grid.Column="1" >
                                     <TextBlock Text="Initial Stock Quantity :" FontSize="20" Foreground="#1b1c1c" Margin="15,10,0,0" FontFamily="Times New Roman"/>
                                     <TextBox x:Name="txtInitialStockQuantity" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
@@ -130,18 +131,18 @@
 
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    
+
                                     <TextBlock Text="Modified Date :" FontSize="20" Foreground="#1b1c1c" Margin="15,10,0,0" FontFamily="Times New Roman"/>
                                     <DatePicker x:Name="dpModifiedDate" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#FFE0DDD1" FontFamily="Times New Roman"/>
-                                    
+
                                     <TextBlock Text="Location ID :" FontSize="20" Foreground="#1b1c1c" Margin="15,10,0,0" FontFamily="Times New Roman"/>
-                                    <TextBox x:Name="txtLocationID" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
+                                    <ComboBox x:Name="cmbLocationID" SelectionChanged="CmbLocationID_SelectionChanged" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
 
                                     <TextBlock Text="Bin :" FontSize="20" Foreground="#1b1c1c" Margin="15,10,0,0" FontFamily="Times New Roman"/>
-                                    <TextBox x:Name="txtBin" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
+                                    <ComboBox x:Name="cmbBin"  SelectionChanged="CmbBin_SelectionChanged" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
 
                                     <TextBlock Text="Shelf :" FontSize="20" Foreground="#1b1c1c" Margin="15,10,0,0" FontFamily="Times New Roman"/>
-                                    <TextBox x:Name="txtShelf" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
+                                    <ComboBox x:Name="cmbShelf"  SelectionChanged="CmbShelf_SelectionChanged" FontSize="18" Foreground="#1b1c1c" BorderBrush="DarkGray" BorderThickness="1" Height="30" Width="250" HorizontalAlignment="Left" Margin="15,10,0,10" Background="#e0ddd1" Padding="5,0,0,0"/>
 
                                 </StackPanel>
                             </Grid>

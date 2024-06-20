@@ -19,14 +19,17 @@ namespace NvvmFinal.Views.Additions
     public partial class InvoicesDetails : Window
     {
         private string salesOrderNumber;
+        private int productid;
 
-        public InvoicesDetails(string salesOrderNumber)
+        public InvoicesDetails(string salesOrderNumber, int productid)
         {
             InitializeComponent();
             this.salesOrderNumber = salesOrderNumber;
-
+            this.productid = productid;
             LoadData(salesOrderNumber);
-            FillDetails(salesOrderNumber);
+            FillDetails(productid);
+           
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -73,7 +76,7 @@ namespace NvvmFinal.Views.Additions
             }
         }
 
-        public void FillDetails(string salesOrderNumber)
+        public void FillDetails(int productid)
         {
             string connectionString = GetConnectionString();
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -81,7 +84,7 @@ namespace NvvmFinal.Views.Additions
                 try
                 {
                     con.Open();
-                    string query = $"select * from Invoice_Details as cd WHERE SalesOrderNumber = '{salesOrderNumber}';";
+                    string query = $"select * from Invoice_Details as cd WHERE Productid = '{productid}';";
                     SqlCommand cmd = new SqlCommand(query, con);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -235,7 +238,7 @@ namespace NvvmFinal.Views.Additions
                 itemCounter++;
             }
 
-            string pdfFilename = @"C:\Users\Kwstas\Downloads\Invoice.pdf";
+            string pdfFilename = @"C:\Users\User\Desktop\Invoice.pdf";
             pdf.Save(pdfFilename);
 
             MessageBox.Show("Invoice printed successfully.");

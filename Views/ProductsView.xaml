@@ -123,8 +123,7 @@
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               HorizontalScrollBarVisibility="Visible"
                               HeadersVisibility="Column"
-                               IsReadOnly="True" 
-                               MouseDoubleClick="MyDataGrid_MouseDoubleClick">
+                               IsReadOnly="True">
                                 <DataGrid.Resources>
                                     <Style TargetType="{x:Type DataGridRow}">
                                         <Setter Property="Background" Value="Transparent"/>

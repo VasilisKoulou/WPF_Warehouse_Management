@@ -219,21 +219,6 @@ namespace NvvmFinal.Views
 
             return productID;
         }
-
-
-        private ProductsDetails detailsWindow;
-        private void MyDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            int productID = getProductID();
-
-            if (detailsWindow != null && detailsWindow.IsLoaded)
-            {
-                detailsWindow.Close();
-            }
-
-            detailsWindow = new ProductsDetails(productID);
-            detailsWindow.Show();
-        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Content.ToString() == "Total Inventory")

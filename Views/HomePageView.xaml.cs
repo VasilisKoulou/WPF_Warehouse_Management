@@ -973,6 +973,79 @@ namespace NvvmFinal.Views
                 }
             }
         }
+        private void AddQuantity()
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+
+                    foreach (var item in orderGrid.Items)
+                    {
+                        if (item is DataRowView row)
+                        {
+                            if (row["Check"] is bool isChecked && isChecked)
+                            {
+                                string purchaseOrderID = row["PurchaseOrderID"].ToString();
+
+                                SqlCommand getQuantityCommand = new SqlCommand(
+                                    "SELECT ProductID, OrderQty FROM purchasing.purchaseorderdetail WHERE PurchaseOrderID = @PurchaseOrderID",
+                                    connection
+                                );
+                                getQuantityCommand.Parameters.AddWithValue("@PurchaseOrderID", purchaseOrderID);
+
+                                int productID = 0;
+                                int quantity = 0;
+                                using (SqlDataReader reader = getQuantityCommand.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        productID = reader.GetInt32(0);
+                                        quantity = reader.GetInt16(1);
+                                    }
+                                    else
+                                    {
+                                        System.Windows.MessageBox.Show($"No details found for PurchaseOrderID {purchaseOrderID}.");
+                                        continue;
+                                    }
+                                }
+                                SqlCommand lcommand = new SqlCommand(
+                                    "SELECT TOP 1 LocationID FROM production.ProductInventory WHERE ProductID = @ProductID ORDER BY Quantity ASC",
+                                    connection
+                                );
+                                lcommand.Parameters.AddWithValue("@ProductID", productID);
+
+                                int locationID = 0;
+                                using (SqlDataReader reader = lcommand.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        locationID = reader.GetInt16(0);
+                                    }
+                                    else
+                                    {
+                                        System.Windows.MessageBox.Show($"No warehouses found for ProductID {productID}.");
+                                        continue;
+                                    }
+                                }
+                                SqlCommand updateCommand = new SqlCommand("AddStockQuantity", connection);
+                                updateCommand.CommandType = CommandType.StoredProcedure;
+                                updateCommand.Parameters.AddWithValue("@ProductID", productID);
+                                updateCommand.Parameters.AddWithValue("@LocationID", locationID);
+                                updateCommand.Parameters.AddWithValue("@Quantity", quantity);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
+                connection.Close();
+            }
+        }
         private void rejectOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = System.Windows.MessageBox.Show("Are You Sure?", "Reject Order", MessageBoxButton.YesNo);
@@ -988,6 +1061,7 @@ namespace NvvmFinal.Views
             MessageBoxResult result = System.Windows.MessageBox.Show("Are You Sure?", "Complete Order", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
+                AddQuantity();
                 ForEachOrderGrid(4);
                 OpenOrdersLoad();
             }

@@ -84,7 +84,7 @@ namespace NvvmFinal.Views
                         }
                         else if (chkSearchByCustomerID.IsChecked == true)
                         {
-                            query = $"SELECT CAST(soh.SalesOrderNumber AS NVARCHAR) AS SalesOrderNumber, CAST(soh.CustomerID AS NVARCHAR) AS CustomerID, pp.LastName, pp.FirstName, CAST(sod.ProductID AS NVARCHAR) AS ProductID, CAST(soh.TotalDue AS NVARCHAR) AS TotalDue, 'Customer' AS SearchType " +
+                            query = $"SELECT CAST(soh.SalesOrderNumber AS NVARCHAR) AS OrderNumber, CAST(soh.CustomerID AS NVARCHAR) AS CustomerID, pp.LastName, pp.FirstName, CAST(sod.ProductID AS NVARCHAR) AS ProductID, CAST(soh.TotalDue AS NVARCHAR) AS TotalDue, 'Customer' AS SearchType " +
                                     $"FROM sales.SalesOrderHeader AS soh " +
                                     $"JOIN sales.SalesOrderDetail AS sod ON soh.SalesOrderID = sod.SalesOrderID " +
                                     $"JOIN sales.Customer AS sc ON soh.CustomerID = sc.CustomerID " +
@@ -135,7 +135,7 @@ namespace NvvmFinal.Views
 
             if (MyDataGrid.SelectedItem is DataRowView rowView)
             {
-                salesOrderNumber = rowView["SalesOrderNumber"].ToString();
+                salesOrderNumber = rowView["OrderNumber"].ToString();
             }
 
             return salesOrderNumber;
@@ -154,8 +154,6 @@ namespace NvvmFinal.Views
             return productID;
         }
 
-
-
         private InvoicesDetails detailsInvoiceWindow;
         private Purchase_Details detailsPurchaseWindow;
 
@@ -173,24 +171,37 @@ namespace NvvmFinal.Views
                 detailsPurchaseWindow.Close();
             }
 
-            if (chkSearchByEmployeeID.IsChecked == true && chkSearchByCustomerID.IsChecked == true)
+            if (MyDataGrid.SelectedItem is DataRowView rowView)
             {
-                return;
-            }
-            if (chkSearchByEmployeeID.IsChecked == true)
-            {
-                detailsPurchaseWindow = new Purchase_Details(productID);
-                detailsPurchaseWindow.Show();
-            }
-            else if (chkSearchByCustomerID.IsChecked == true)
-            {
-                string salesOrderNumber = getSalesOrderNumber();
-                detailsInvoiceWindow = new InvoicesDetails(salesOrderNumber);
-                detailsInvoiceWindow.Show();
+                string orderNumber = rowView["OrderNumber"].ToString();
+
+                if (chkSearchByEmployeeID.IsChecked == true && chkSearchByCustomerID.IsChecked == true)
+                {
+                    if (int.TryParse(orderNumber, out int number))
+                    {
+                        detailsPurchaseWindow = new Purchase_Details(productID);
+                        detailsPurchaseWindow.Show();
+                    }
+                    else
+                    {
+                        string salesOrderNumber = getSalesOrderNumber();
+                        detailsInvoiceWindow = new InvoicesDetails(salesOrderNumber, productID);
+                        detailsInvoiceWindow.Show();
+                    }
+                }
+                else if (chkSearchByEmployeeID.IsChecked == true)
+                {
+                    detailsPurchaseWindow = new Purchase_Details(productID);
+                    detailsPurchaseWindow.Show();
+                }
+                else if (chkSearchByCustomerID.IsChecked == true)
+                {
+                    string salesOrderNumber = getSalesOrderNumber();
+                    detailsInvoiceWindow = new InvoicesDetails(salesOrderNumber, productID);
+                    detailsInvoiceWindow.Show();
+                }
+
             }
         }
-
-
-
     }
 }
